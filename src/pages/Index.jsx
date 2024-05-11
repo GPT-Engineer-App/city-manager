@@ -43,6 +43,19 @@ const Index = () => {
           duration: 2000,
           isClosable: true,
         });
+        const fetchCities = async () => {
+          try {
+            const response = await fetch("https://sheet.best/api/sheets/05222091-12c2-48e7-8331-51afe0826c68");
+            if (response.ok) {
+              const data = await response.json();
+              setCities(data);
+            }
+          } catch (error) {
+            console.error("Error fetching cities:", error);
+          }
+        };
+        fetchCities();
+        fetchCities();
       }
     } catch (error) {
       console.error("Error adding city:", error);
