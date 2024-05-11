@@ -30,7 +30,7 @@ const Index = () => {
       const response = await fetch("https://sheet.best/api/sheets/05222091-12c2-48e7-8331-51afe0826c68", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ id: newId.toString(), name: newCity }),
+        body: JSON.stringify({ Id: newId.toString(), name: newCity }),
       });
       if (response.ok) {
         const newCityData = await response.json()[0];
@@ -65,7 +65,7 @@ const Index = () => {
   // Delete a city
   const deleteCity = async (cityId) => {
     try {
-      const response = await fetch(`https://sheet.best/api/sheets/05222091-12c2-48e7-8331-51afe0826c68/${cityId}`, {
+      const response = await fetch(`https://sheet.best/api/sheets/05222091-12c2-48e7-8331-51afe0826c68/Id/${cityId}`, {
         method: "DELETE",
       });
       if (response.ok) {
