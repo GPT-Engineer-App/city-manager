@@ -32,8 +32,8 @@ const Index = () => {
         body: JSON.stringify({ name: newCity }),
       });
       if (response.ok) {
-        const newCityData = await response.json();
-        setCities([...cities, newCityData]);
+        const newCityData = await response.json()[0];
+        setCities([...cities, { ...newCityData, img: `https://source.unsplash.com/random/?${newCityData.name}` }]);
         setNewCity("");
         toast({
           title: "City added.",
