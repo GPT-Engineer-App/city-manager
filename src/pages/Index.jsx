@@ -80,7 +80,7 @@ const Index = () => {
         <Grid templateColumns="repeat(3, 1fr)" gap={6} width="100%">
           {cities.map((city, index) => (
             <Box key={index} borderWidth="1px" borderRadius="lg" overflow="hidden">
-              <Image src={city.img} alt={`Image of ${city.name}`} boxSize="200px" objectFit="cover" />
+              <Image src={`https://source.unsplash.com/random/?${city.name}`} alt={`Image of ${city.name}`} boxSize="200px" objectFit="cover" />
               <Box p={5}>
                 <VStack spacing={2}>
                   <Text fontWeight="bold" fontSize="xl">
