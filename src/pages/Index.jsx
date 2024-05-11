@@ -26,10 +26,11 @@ const Index = () => {
   // Add a new city
   const addCity = async () => {
     try {
+      const newId = cities.length > 0 ? Math.max(...cities.map((city) => parseInt(city.id))) + 1 : 1;
       const response = await fetch("https://sheet.best/api/sheets/05222091-12c2-48e7-8331-51afe0826c68", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ name: newCity }),
+        body: JSON.stringify({ id: newId.toString(), name: newCity }),
       });
       if (response.ok) {
         const newCityData = await response.json()[0];
