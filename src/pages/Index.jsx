@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Container, VStack, Button, Input, List, ListItem, IconButton, useToast } from "@chakra-ui/react";
+import { Container, VStack, Button, Input, List, ListItem, IconButton, useToast, Image } from "@chakra-ui/react";
 import { FaPlus, FaTrash, FaEdit } from "react-icons/fa";
 
 const Index = () => {
@@ -52,7 +52,10 @@ const Index = () => {
         <List spacing={3} width="100%">
           {cities.map((city, index) => (
             <ListItem key={index} display="flex" justifyContent="space-between" alignItems="center">
-              {city.name}
+              <VStack>
+                <Image src={city.img} alt={`Image of ${city.name}`} boxSize="100px" objectFit="cover" />
+                {city.name}
+              </VStack>
               <IconButton aria-label="Delete city" icon={<FaTrash />} onClick={() => deleteCity(city.name)} colorScheme="red" />
             </ListItem>
           ))}
