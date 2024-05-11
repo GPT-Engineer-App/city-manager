@@ -9,37 +9,65 @@ const Index = () => {
 
   // Fetch cities from the API
   useEffect(() => {
-    fetch("https://sheet.best/api/sheets/05222091-12c2-48e7-8331-51afe0826c68")
-      .then((response) => response.json())
-      .then((data) => setCities(data))
-      .catch((error) => console.error("Error fetching cities:", error));
+    const fetchCities = async () => {
+      try {
+        const response = await fetch("https://sheet.best/api/sheets/05222091-12c2-48e7-8331-51afe0826c68");
+        if (response.ok) {
+          const data = await response.json();
+          setCities(data);
+        }
+      } catch (error) {
+        console.error("Error fetching cities:", error);
+      }
+    };
+    fetchCities();
   }, []);
 
   // Add a new city
-  const addCity = () => {
-    const updatedCities = [...cities, { name: newCity }];
-    setCities(updatedCities);
-    setNewCity("");
-    toast({
-      title: "City added.",
-      description: `${newCity} has been added to your city list.`,
-      status: "success",
-      duration: 2000,
-      isClosable: true,
-    });
+  const addCity = async () => {
+    try {
+      const response = await fetch("https://sheet.best/api/sheets/05222091-12c2-48e7-8331-51afe0826c68", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ name: newCity }),
+      });
+      if (response.ok) {
+        const newCityData = await response.json();
+        setCities([...cities, newCityData]);
+        setNewCity("");
+        toast({
+          title: "City added.",
+          description: `${newCity} has been added to your city list.`,
+          status: "success",
+          duration: 2000,
+          isClosable: true,
+        });
+      }
+    } catch (error) {
+      console.error("Error adding city:", error);
+    }
   };
 
   // Delete a city
-  const deleteCity = (cityName) => {
-    const updatedCities = cities.filter((city) => city.name !== cityName);
-    setCities(updatedCities);
-    toast({
-      title: "City deleted.",
-      description: `${cityName} has been removed from your city list.`,
-      status: "error",
-      duration: 2000,
-      isClosable: true,
-    });
+  const deleteCity = async (cityId) => {
+    try {
+      const response = await fetch(`https://sheet.best/api/sheets/05222091-12c2-48e7-8331-51afe0826c68/${cityId}`, {
+        method: "DELETE",
+      });
+      if (response.ok) {
+        const updatedCities = cities.filter((city) => city.id !== cityId);
+        setCities(updatedCities);
+        toast({
+          title: "City deleted.",
+          description: "The city has been removed from your city list.",
+          status: "error",
+          duration: 2000,
+          isClosable: true,
+        });
+      }
+    } catch (error) {
+      console.error("Error deleting city:", error);
+    }
   };
 
   return (
