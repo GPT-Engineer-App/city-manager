@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Container, VStack, Button, Input, List, ListItem, IconButton, useToast, Image } from "@chakra-ui/react";
+import { Container, VStack, Button, Input, Grid, Box, Text, IconButton, useToast, Image } from "@chakra-ui/react";
 import { FaPlus, FaTrash, FaEdit } from "react-icons/fa";
 
 const Index = () => {
@@ -49,17 +49,21 @@ const Index = () => {
         <Button leftIcon={<FaPlus />} colorScheme="teal" onClick={addCity} isDisabled={!newCity}>
           Add City
         </Button>
-        <List spacing={3} width="100%">
+        <Grid templateColumns="repeat(3, 1fr)" gap={6} width="100%">
           {cities.map((city, index) => (
-            <ListItem key={index} display="flex" justifyContent="space-between" alignItems="center">
-              <VStack>
-                <Image src={city.img} alt={`Image of ${city.name}`} boxSize="100px" objectFit="cover" />
-                {city.name}
-              </VStack>
-              <IconButton aria-label="Delete city" icon={<FaTrash />} onClick={() => deleteCity(city.name)} colorScheme="red" />
-            </ListItem>
+            <Box key={index} borderWidth="1px" borderRadius="lg" overflow="hidden">
+              <Image src={city.img} alt={`Image of ${city.name}`} boxSize="200px" objectFit="cover" />
+              <Box p={5}>
+                <VStack spacing={2}>
+                  <Text fontWeight="bold" fontSize="xl">
+                    {city.name}
+                  </Text>
+                  <IconButton aria-label="Delete city" icon={<FaTrash />} onClick={() => deleteCity(city.name)} colorScheme="red" />
+                </VStack>
+              </Box>
+            </Box>
           ))}
-        </List>
+        </Grid>
       </VStack>
     </Container>
   );
