@@ -86,7 +86,7 @@ const Index = () => {
                   <Text fontWeight="bold" fontSize="xl">
                     {city.name}
                   </Text>
-                  <IconButton aria-label="Delete city" icon={<FaTrash />} onClick={() => deleteCity(city.name)} colorScheme="red" />
+                  <IconButton aria-label="Delete city" icon={<FaTrash />} onClick={() => deleteCity(city.id)} colorScheme="red" />
                 </VStack>
               </Box>
             </Box>
